@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f5ee">
+<title>رفقة الذكر | أذكار الصباح</title>
+<style>
+:root{--bg:#f7f5ee;--card:#fffefa;--ink:#263b31;--muted:#78847b;--green:#55735e;--pale:#e9efe7;--gold:#b69a62;--line:#e8e6dc}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.9}
+.wrap{width:min(760px,92%);margin:auto;padding:30px 0 54px}
+header{text-align:center;padding:28px 16px 24px}
+.mark{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;margin:0 auto 12px;background:var(--pale);color:var(--green);font-size:25px}
+h1{font-size:clamp(30px,6vw,42px);margin:0;color:var(--green);letter-spacing:-1px}
+.tag{margin:5px 0 0;color:var(--muted);font-size:15px}
+.intro{background:#eef2eb;border:1px solid #e0e8de;border-radius:18px;padding:14px 18px;text-align:center;margin:0 0 18px;color:#52675a}
+.progressbox{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px 18px;margin-bottom:18px}
+.prow{display:flex;justify-content:space-between;gap:10px;font-size:14px;color:var(--muted);margin-bottom:9px}
+.track{height:8px;background:#eceee7;border-radius:20px;overflow:hidden}.bar{height:100%;width:0;background:var(--green);transition:width .2s}
+.list{display:grid;gap:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 19px;box-shadow:0 3px 12px #263b3108}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.num{font-size:13px;color:var(--muted)}
+.badge{background:var(--pale);color:var(--green);border-radius:30px;padding:3px 11px;font-size:13px;white-space:nowrap}
+.text{font-size:20px;line-height:2.15;color:#263b31;margin:8px 0 13px}
+.meta{font-size:12px;color:var(--muted);margin-top:8px}
+.actions{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.counter{display:flex;align-items:center;gap:10px}
+button{border:0;cursor:pointer;font:inherit}
+.countbtn{width:43px;height:43px;border-radius:50%;background:var(--green);color:white;font-size:23px}
+.countbtn:disabled{opacity:.45;cursor:default}
+.count{min-width:42px;text-align:center;font-weight:bold;font-size:17px}
+.resetone{background:transparent;color:var(--muted);font-size:12px;padding:8px}
+.done{color:var(--green);font-size:13px;min-width:54px;text-align:left}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:24px}
+.footer a{color:var(--green)}
+.resetall{margin-top:14px;background:transparent;border:1px solid var(--line);border-radius:30px;padding:7px 15px;color:var(--muted);font-size:12px}
+@media(max-width:480px){.text{font-size:18px}.card{padding:15px}.wrap{padding-top:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <div class="mark">☘</div>
+ <h1>رفقة الذكر</h1>
+ <p class="tag">اجعل لسانك رطباً بذكر الله</p>
+</header>
+<div class="intro">ابدأ صباحك بذكر الله، وخذ وقتك في القراءة والتدبّر. تقبّل الله منك.</div>
+<section class="progressbox" aria-live="polite">
+ <div class="prow"><span>إنجاز أذكار اليوم</span><strong id="progressText">0%</strong></div>
+ <div class="track"><div class="bar" id="bar"></div></div>
+ <div class="prow" style="margin:9px 0 0"><span id="doneText">0 من 10 أذكار مكتملة</span><span>🌿</span></div>
+</section>
+<main class="list" id="list"></main>
+<div style="text-align:center"><button class="resetall" id="resetAll">إعادة ضبط أذكار اليوم</button></div>
+<div class="footer">
+<p>الأذكار المعروضة مختارة من القرآن والسنة، مع بيان العدد والمصدر قدر الإمكان.</p>
+<p>يُحفظ التقدّم على هذا الجهاز والمتصفح فقط، دون إنشاء حساب.</p>
+<p>المراجع: <a href="https://sunnah.com/hisn" target="_blank" rel="noopener">حصن المسلم – Sunnah.com</a> · <a href="https://risala.prh.gov.sa/storage/contents/51/ar_hisnulmuslim.pdf" target="_blank" rel="noopener">نسخة حصن المسلم PDF</a></p>
+</div>
+</div>
+<script>
+const adhkar = [
+{title:"آية الكرسي",n:1,txt:"اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",src:"سورة البقرة: 255."},
+{title:"سورة الإخلاص",n:3,txt:"قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ",src:"سورة الإخلاص. تُقرأ مع المعوذتين ثلاث مرات صباحاً ومساءً."},
+{title:"سورة الفلق",n:3,txt:"قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۝ مِنْ شَرِّ مَا خَلَقَ ۝ وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ ۝ وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ۝ وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ",src:"سورة الفلق. تُقرأ مع الإخلاص والناس ثلاث مرات."},
+{title:"سورة الناس",n:3,txt:"قُلْ أَعُوذُ بِرَبِّ النَّاسِ ۝ مَلِكِ النَّاسِ ۝ إِلَٰهِ النَّاسِ ۝ مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ۝ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ۝ مِنَ الْجِنَّةِ وَالنَّاسِ",src:"سورة الناس. تُقرأ مع الإخلاص والفلق ثلاث مرات."},
+{title:"أصبحنا وأصبح الملك لله",n:1,txt:"أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ. رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذَا الْيَوْمِ وَخَيْرَ مَا بَعْدَهُ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذَا الْيَوْمِ وَشَرِّ مَا بَعْدَهُ. رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ. رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ.",src:"صحيح مسلم، من أذكار الصباح والمساء."},
+{title:"سيد الاستغفار",n:1,txt:"اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي، فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ.",src:"صحيح البخاري. من قاله موقناً به حين يصبح ثم مات قبل أن يمسي دخل الجنة."},
+{title:"اللهم بك أصبحنا",n:1,txt:"اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ.",src:"سنن الترمذي وأبو داود."},
+{title:"رضيت بالله رباً",n:3,txt:"رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ ﷺ نَبِيًّا.",src:"سنن أبي داود والترمذي."},
+{title:"بسم الله الذي لا يضر",n:3,txt:"بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ.",src:"سنن أبي داود والترمذي."},
+{title:"سبحان الله وبحمده",n:100,txt:"سُبْحَانَ اللَّهِ وَبِحَمْدِهِ.",src:"صحيح البخاري وصحيح مسلم. ورد فضل قولها مائة مرة في اليوم."}
+];
+const key='refqat-adhkar-'+new Date().toLocaleDateString('en-CA');
+let state={};
+try{state=JSON.parse(localStorage.getItem(key)||'{}')}catch(e){}
+const list=document.getElementById('list');
+function render(){
+ list.innerHTML='';
+ adhkar.forEach((a,i)=>{
+  const val=Math.min(a.n,Number(state[i]||0));
+  const card=document.createElement('article');card.className='card';
+  card.innerHTML=`<div class="top"><span class="num">الذكر ${i+1}</span><span class="badge">${a.n} ${a.n===1?'مرة':'مرات'}</span></div><strong>${a.title}</strong><p class="text">${a.txt}</p><div class="actions"><div class="counter"><button class="countbtn" aria-label="زيادة العداد">+</button><span class="count">${val} / ${a.n}</span><button class="resetone">إعادة</button></div><span class="done">${val>=a.n?'مكتمل ✓':''}</span></div><div class="meta">${a.src}</div>`;
+  const btn=card.querySelector('.countbtn');btn.disabled=val>=a.n;
+  btn.addEventListener('click',()=>{state[i]=Math.min(a.n,Number(state[i]||0)+1);save();render()});
+  card.querySelector('.resetone').addEventListener('click',()=>{state[i]=0;save();render()});
+  list.appendChild(card);
+ });
+ updateProgress();
+}
+function save(){localStorage.setItem(key,JSON.stringify(state))}
+function updateProgress(){
+ const completed=adhkar.filter((a,i)=>Number(state[i]||0)>=a.n).length;
+ const pct=Math.round(completed/adhkar.length*100);
+ document.getElementById('progressText').textContent=pct+'%';
+ document.getElementById('bar').style.width=pct+'%';
+ document.getElementById('doneText').textContent=completed+' من '+adhkar.length+' أذكار مكتملة';
+}
+document.getElementById('resetAll').addEventListener('click',()=>{if(confirm('هل تريد إعادة ضبط عدادات اليوم؟')){state={};save();render()}});
+render();
+</script>
+</body>
+</html>
