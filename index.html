@@ -33,6 +33,14 @@ button{border:0;cursor:pointer;font:inherit}
 .resetone{background:transparent;color:var(--muted);font-size:12px;padding:8px}
 .done{color:var(--green);font-size:13px;min-width:54px;text-align:left}
 .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:24px}
+
+.reminder{background:#eef2eb;border:1px solid #dce6da;border-radius:18px;padding:20px;margin:22px 0 18px}
+.reminder h2{margin:0 0 10px;text-align:center;color:var(--green);font-size:21px}
+.reminder p{margin:8px 0;text-align:center}
+.reminder .reminder-text{font-size:17px;color:var(--ink);line-height:2}
+.reminder .hadith{font-weight:bold;color:var(--green)}
+.reminder .source{font-size:12px;color:var(--muted)}
+
 .footer a{color:var(--green)}
 .resetall{margin-top:14px;background:transparent;border:1px solid var(--line);border-radius:30px;padding:7px 15px;color:var(--muted);font-size:12px}
 @media(max-width:480px){.text{font-size:18px}.card{padding:15px}.wrap{padding-top:14px}}
@@ -52,6 +60,15 @@ button{border:0;cursor:pointer;font:inherit}
  <div class="prow" style="margin:9px 0 0"><span id="doneText">0 من 10 أذكار مكتملة</span><span>🌿</span></div>
 </section>
 <main class="list" id="list"></main>
+
+<aside class="reminder" aria-labelledby="reminderTitle">
+ <h2 id="reminderTitle">🌿 تذكرة اليوم</h2>
+ <p class="reminder-text">اجعل وجودك في كفتيريا الجامعة فرصة لتثبت أن أخلاقك لا تتغير بتغيّر المكان.</p>
+ <p class="hadith">قال رسول الله ﷺ: «يا علي، لا تُتْبِعِ النَّظْرَةَ النَّظْرَةَ، فإنَّ لك الأولى وليست لك الآخرةُ».</p>
+ <p class="source">رواه أبو داود والترمذي، وقال الترمذي: حسن غريب.</p>
+ <p>غضّ بصرك عبادة، واحفظ قلبك، وتذكّر أن الله يراك في كل مكان.</p>
+</aside>
+
 <div style="text-align:center"><button class="resetall" id="resetAll">إعادة ضبط أذكار اليوم</button></div>
 <div class="footer">
 <p>الأذكار المعروضة مختارة من القرآن والسنة، مع بيان العدد والمصدر قدر الإمكان.</p>
